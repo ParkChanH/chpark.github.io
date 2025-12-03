@@ -7,6 +7,7 @@
     <meta name="description" content="박찬호 - 시스템 엔지니어 포트폴리오. 서버 구축, 네트워크 관리, 모니터링 시스템 전문.">
     <meta name="keywords" content="시스템 엔지니어, System Engineer, 서버, 스토리지, 네트워크, 리눅스, Windows Server, 포트폴리오">
     <meta name="author" content="박찬호">
+    <meta name="color-scheme" content="light dark">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -16,10 +17,52 @@
     <meta property="og:image" content="https://parkchanh.github.io/images/real_server.jpg">
 
     <title>박찬호 - System Engineer Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
-        html {
-            scroll-behavior: smooth;
+        @font-face {
+            font-family: 'Pretendard';
+            src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        }
+
+        :root {
+            --bg-primary: #fafafa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f4f4f5;
+            --text-primary: #18181b;
+            --text-secondary: #52525b;
+            --text-muted: #a1a1aa;
+            --accent-primary: #2563eb;
+            --accent-secondary: #3b82f6;
+            --accent-light: #dbeafe;
+            --accent-gradient: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            --card-border: #e4e4e7;
+            --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --header-bg: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --success: #16a34a;
+            --warning: #ea580c;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #09090b;
+            --bg-secondary: #18181b;
+            --bg-tertiary: #27272a;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #60a5fa;
+            --accent-light: #1e3a5f;
+            --card-border: #3f3f46;
+            --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
+            --header-bg: linear-gradient(135deg, #0c1929 0%, #1e3a5f 100%);
+            --nav-bg: rgba(9, 9, 11, 0.95);
         }
 
         * {
@@ -28,13 +71,19 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: #1a1a1a;
-            background: #f5f7fa;
-            padding-top: 70px;
-            /* Space for fixed nav */
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            padding-top: 64px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Navigation */
@@ -43,19 +92,19 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
             z-index: 1000;
-            height: 70px;
+            height: 64px;
             display: flex;
             align-items: center;
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 0 60px;
+            padding: 0 24px;
             width: 100%;
             display: flex;
             justify-content: space-between;
@@ -63,534 +112,878 @@
         }
 
         .nav-logo {
-            font-size: 1.5em;
+            font-size: 1.25rem;
             font-weight: 700;
-            color: #1e3c72;
+            color: var(--accent-primary);
             text-decoration: none;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 32px;
             list-style: none;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #4a5568;
+            color: var(--text-secondary);
             font-weight: 500;
-            transition: color 0.3s;
-            font-size: 0.95em;
+            font-size: 0.9rem;
+            transition: color 0.2s;
         }
 
         .nav-links a:hover {
-            color: #2a5298;
+            color: var(--accent-primary);
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0;
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        /* Header with Hero Background */
-        header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 80px 60px;
-            position: relative;
-            overflow: hidden;
+        .theme-toggle {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--card-border);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.2s;
         }
 
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
+        .theme-toggle:hover {
+            background: var(--accent-light);
+            border-color: var(--accent-primary);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            width: 20px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 64px;
             left: 0;
             right: 0;
-            bottom: 0;
-            background-image:
-                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 255, 255, .03) 35px, rgba(255, 255, 255, .03) 70px);
-            pointer-events: none;
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--card-border);
+            padding: 16px;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 8px;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--bg-tertiary);
+        }
+
+        /* Header */
+        header {
+            background: var(--header-bg);
+            color: white;
+            padding: 80px 24px;
+            position: relative;
         }
 
         .header-content {
-            position: relative;
-            z-index: 1;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 48px;
+            align-items: center;
         }
 
-        header h1 {
-            font-size: 3.5em;
-            font-weight: 700;
-            margin-bottom: 15px;
+        .header-text h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 8px;
             letter-spacing: -1px;
         }
 
-        header .subtitle {
-            font-size: 1.6em;
-            font-weight: 300;
-            margin-bottom: 30px;
-            opacity: 0.95;
+        .header-text .role {
+            font-size: 1.5rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 24px;
         }
 
-        header .contact-info {
+        .header-text .tagline {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.85;
+            max-width: 500px;
+            margin-bottom: 32px;
+        }
+
+        .contact-pills {
             display: flex;
-            gap: 35px;
             flex-wrap: wrap;
-            margin-top: 25px;
-            font-size: 1em;
+            gap: 12px;
         }
 
-        header .contact-info span {
-            display: flex;
+        .contact-pill {
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 16px;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: white;
+            transition: all 0.2s;
+            backdrop-filter: blur(8px);
         }
 
-        /* Main Content Area */
+        .contact-pill:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .header-visual {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
         .main-content {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 24px;
         }
 
-        /* Section Styling */
         section {
-            background: white;
-            padding: 60px;
-            margin: 40px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            background: var(--bg-secondary);
+            padding: 48px;
+            margin: 32px 0;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
         }
 
         section h2 {
-            color: #1e3c72;
-            font-size: 2.2em;
-            font-weight: 600;
-            margin-bottom: 35px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e8eef5;
-            position: relative;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         section h2::before {
             content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 60px;
-            height: 2px;
-            background: #2a5298;
+            width: 4px;
+            height: 28px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
         }
 
-        /* About Section with Image */
-        .about-section {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .about-text {
-            font-size: 1.1em;
-            line-height: 1.9;
-            color: #4a5568;
-        }
-
-        .about-image {
-            width: 100%;
-            height: 300px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 4em;
-            font-weight: 600;
-        }
-
-        /* Skills Grid */
-        .skills-grid {
+        /* Value Proposition - 핵심 강점 */
+        .value-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 24px;
         }
 
-        .skill-card {
-            background: #f8fafc;
-            padding: 35px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-
-        .skill-card:hover {
-            border-color: #2a5298;
-            box-shadow: 0 4px 12px rgba(42, 82, 152, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .skill-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        .value-card {
+            text-align: center;
+            padding: 32px 24px;
+            background: var(--bg-tertiary);
             border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .value-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-gradient);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 16px;
             color: white;
-            font-size: 1.8em;
-            margin-bottom: 20px;
         }
 
-        .skill-card h3 {
-            font-size: 1.3em;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #1a1a1a;
-        }
-
-        .skill-card ul {
-            list-style: none;
-        }
-
-        .skill-card li {
-            padding: 10px 0;
-            padding-left: 25px;
-            position: relative;
-            color: #4a5568;
-            font-size: 0.95em;
-        }
-
-        .skill-card li:before {
-            content: '●';
-            position: absolute;
-            left: 0;
-            color: #2a5298;
-            font-size: 0.8em;
-        }
-
-        /* Experience Timeline */
-        .experience-timeline {
-            position: relative;
-            padding-left: 40px;
-        }
-
-        .experience-timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #e2e8f0;
-        }
-
-        .experience-item {
-            position: relative;
-            padding: 30px;
-            margin-bottom: 30px;
-            background: #f8fafc;
-            border-radius: 8px;
-            border-left: 4px solid #2a5298;
-        }
-
-        .experience-item::before {
-            content: '';
-            position: absolute;
-            left: -44px;
-            top: 40px;
-            width: 12px;
-            height: 12px;
-            background: #2a5298;
-            border-radius: 50%;
-            border: 3px solid white;
-        }
-
-        .experience-item h3 {
-            color: #1e3c72;
-            font-size: 1.5em;
+        .value-card h3 {
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 8px;
+            color: var(--text-primary);
         }
 
-        .experience-item .period {
-            color: #2a5298;
-            font-weight: 600;
+        .value-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* About - 스토리 */
+        .about-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .about-story {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+
+        .about-story p {
             margin-bottom: 20px;
-            font-size: 1em;
         }
 
-        .experience-item ul {
-            margin-left: 20px;
-            margin-top: 15px;
+        .about-story strong {
+            color: var(--text-primary);
+            font-weight: 600;
         }
 
-        .experience-item li {
-            margin-bottom: 10px;
-            color: #4a5568;
+        .about-story .highlight {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .about-aside {
+            background: var(--bg-tertiary);
+            padding: 24px;
+            border-radius: 12px;
+        }
+
+        .about-aside h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 0.95rem;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--text-muted);
+        }
+
+        .info-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Experience */
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .experience-card {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 32px;
+            padding: 32px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-primary);
+        }
+
+        .experience-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .experience-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .experience-duration {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: var(--bg-secondary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+
+        .experience-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .experience-team {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .experience-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
             line-height: 1.7;
         }
 
-        /* Projects Grid */
+        .achievement-list {
+            list-style: none;
+        }
+
+        .achievement-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .achievement-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .achievement-highlight {
+            display: inline-block;
+            background: var(--accent-light);
+            color: var(--accent-primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* Problem Solving - STAR 방식 */
+        .story-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .story-card {
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .story-header {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 20px 24px;
+        }
+
+        .story-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .story-header span {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .story-body {
+            padding: 24px;
+        }
+
+        .star-item {
+            margin-bottom: 20px;
+        }
+
+        .star-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .star-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            background: var(--accent-light);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .star-item p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .result-highlight {
+            background: linear-gradient(135deg, #dcfce7 0%, #d1fae5 100%);
+            border-left: 4px solid var(--success);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 16px;
+        }
+
+        [data-theme="dark"] .result-highlight {
+            background: linear-gradient(135deg, #14532d 0%, #166534 100%);
+        }
+
+        .result-highlight p {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Skills */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .skill-category {
+            background: var(--bg-tertiary);
+            padding: 28px;
+            border-radius: 12px;
+        }
+
+        .skill-category h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: var(--bg-secondary);
+            border: 1px solid var(--card-border);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .skill-tag.primary {
+            background: var(--accent-light);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Projects */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
+            gap: 24px;
         }
 
         .project-card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
         .project-card:hover {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
             transform: translateY(-4px);
+            box-shadow: var(--card-shadow-hover);
         }
 
         .project-image {
-            width: 100%;
-            height: 200px;
-            background: #e2e8f0;
-            overflow: hidden;
+            height: 180px;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
         }
 
         .project-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .project-card:hover .project-image img {
-            transform: scale(1.05);
         }
 
         .project-content {
-            padding: 30px;
+            padding: 24px;
         }
 
-        .project-card h3 {
-            color: #1e3c72;
-            font-size: 1.4em;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .project-card .project-period {
-            color: #2a5298;
-            font-weight: 600;
-            font-size: 0.9em;
-            margin-bottom: 15px;
-        }
-
-        .project-card p {
-            color: #4a5568;
-            line-height: 1.8;
-            font-size: 0.95em;
-        }
-
-        /* Achievements Stats */
-        .achievement-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .achievement-item {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            padding: 40px 30px;
-            border-radius: 8px;
-            text-align: center;
-            color: white;
-            transition: transform 0.3s ease;
-        }
-
-        .achievement-item:hover {
-            transform: scale(1.05);
-        }
-
-        .achievement-item .number {
-            font-size: 3.5em;
+        .project-content h3 {
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 10px;
-            line-height: 1;
+            margin-bottom: 8px;
+            color: var(--text-primary);
         }
 
-        .achievement-item p {
-            font-size: 1em;
-            font-weight: 400;
-            opacity: 0.95;
-            line-height: 1.5;
+        .project-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .project-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        /* Growth & Goals */
+        .growth-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .growth-card {
+            background: var(--bg-tertiary);
+            padding: 28px;
+            border-radius: 12px;
+        }
+
+        .growth-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .growth-list {
+            list-style: none;
+        }
+
+        .growth-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .growth-list li:last-child {
+            border-bottom: none;
+        }
+
+        .growth-list .icon {
+            font-size: 1.1rem;
         }
 
         /* Education */
         .education-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
+            gap: 24px;
         }
 
-        .education-item {
-            background: #f8fafc;
-            padding: 35px;
+        .education-card {
+            background: var(--bg-tertiary);
+            padding: 24px;
+            border-radius: 12px;
+        }
+
+        .education-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .education-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 4px 0;
+        }
+
+        .education-card .year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: var(--accent-gradient);
+            color: white;
+            text-align: center;
+            padding: 64px 48px;
+        }
+
+        .cta-section h2 {
+            color: white;
+            justify-content: center;
+        }
+
+        .cta-section h2::before {
+            display: none;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
             border-radius: 8px;
-            border-left: 4px solid #2a5298;
-        }
-
-        .education-item h3 {
-            color: #1e3c72;
-            font-size: 1.4em;
             font-weight: 600;
-            margin-bottom: 12px;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s;
         }
 
-        .education-item p {
-            color: #4a5568;
-            margin: 8px 0;
-            font-size: 1em;
+        .cta-btn.primary {
+            background: white;
+            color: var(--accent-primary);
         }
 
-        .education-item .year {
-            color: #2a5298;
-            font-weight: 600;
-            margin-top: 15px;
+        .cta-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-btn.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         /* Footer */
         footer {
-            background: #1a202c;
-            color: #a0aec0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--card-border);
+            padding: 48px 24px;
             text-align: center;
-            padding: 50px 40px;
-            margin-top: 60px;
         }
 
         footer p {
-            font-size: 1em;
-            margin: 8px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 4px 0;
         }
 
-        footer .copyright {
-            font-size: 0.9em;
-            opacity: 0.8;
-            margin-top: 20px;
-        }
-
-        /* Scroll Animations */
-        .fade-in-section {
+        /* Animations */
+        .fade-in {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            will-change: opacity, visibility;
+            transition: all 0.6s ease;
         }
 
-        .fade-in-section.is-visible {
+        .fade-in.visible {
             opacity: 1;
-            transform: none;
+            transform: translateY(0);
         }
 
-        /* Back to Top Button */
+        /* Back to Top */
         #back-to-top {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #2a5298;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            background: var(--accent-primary);
             color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
+            border: none;
+            border-radius: 12px;
             cursor: pointer;
             opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            z-index: 999;
-            border: none;
-            pointer-events: none;
+            visibility: hidden;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
         #back-to-top.show {
             opacity: 1;
-            pointer-events: auto;
+            visibility: visible;
         }
 
         #back-to-top:hover {
-            transform: translateY(-3px);
-            background: #1e3c72;
+            transform: translateY(-4px);
         }
 
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-
-            .about-section,
-            .projects-grid {
+        /* Responsive */
+        @media (max-width: 900px) {
+            .header-content {
                 grid-template-columns: 1fr;
+                text-align: center;
             }
 
-            .skills-grid,
-            .achievement-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding-top: 60px;
-            }
-
-            nav {
-                height: 60px;
-            }
-
-            .nav-container {
-                padding: 0 20px;
-            }
-
-            .nav-links {
+            .header-visual {
                 display: none;
-                /* Simple mobile menu hide for now, or could implement hamburger */
             }
 
-            header {
-                padding: 60px 30px;
+            .contact-pills {
+                justify-content: center;
             }
 
-            header h1 {
-                font-size: 2.5em;
-            }
-
-            header .subtitle {
-                font-size: 1.3em;
-            }
-
-            section {
-                padding: 40px 30px;
-            }
-
-            .main-content {
-                padding: 0 20px;
-            }
-
-            .skills-grid,
-            .achievement-grid,
+            .about-content,
+            .skills-container,
+            .growth-content,
+            .projects-grid,
             .education-grid {
                 grid-template-columns: 1fr;
             }
 
-            .experience-timeline {
-                padding-left: 30px;
+            .experience-card {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            header {
+                padding: 48px 20px;
+            }
+
+            .header-text h1 {
+                font-size: 2.25rem;
+            }
+
+            section {
+                padding: 32px 20px;
+                margin: 20px 0;
+            }
+
+            section h2 {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -600,333 +993,487 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="nav-logo">Chanho.P</a>
+            <a href="#" class="nav-logo">박찬호</a>
+            
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
                 <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
+                <li><a href="#problem-solving">Problem Solving</a></li>
+                <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+
+            <div class="nav-right">
+                <button class="theme-toggle" id="theme-toggle" aria-label="테마 변경">
+                    <span id="theme-icon">🌙</span>
+                </button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#problem-solving">Problem Solving</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
 
     <!-- Header -->
-    <header id="home">
+    <header>
         <div class="header-content">
-            <h1>박찬호</h1>
-            <div class="subtitle">System Engineer</div>
-            <div class="contact-info" id="contact">
-                <span>✉ <a href="mailto:park_ch@kakao.com"
-                        style="color: white; text-decoration: none;">park_ch@kakao.com</a></span>
-                <span>☎ <a href="tel:010-6752-5567"
-                        style="color: white; text-decoration: none;">010-6752-5567</a></span>
-                <span>⚲ 서울</span>
-                <span>◷ 1998.06.09</span>
+            <div class="header-text">
+                <h1>박찬호</h1>
+                <div class="role">System Engineer</div>
+                <p class="tagline">
+                    "문제가 생기기 전에 예방하고, 생기면 빠르게 해결합니다"<br>
+                    모니터링 시스템 구축과 자동화를 통해 안정적인 인프라를 만드는 엔지니어입니다.
+                </p>
+                <div class="contact-pills" id="contact">
+                    <a href="mailto:park_ch@kakao.com" class="contact-pill">
+                        ✉️ park_ch@kakao.com
+                    </a>
+                    <a href="tel:010-6752-5567" class="contact-pill">
+                        📱 010-6752-5567
+                    </a>
+                    <span class="contact-pill">
+                        📍 서울
+                    </span>
+                </div>
+            </div>
+            <div class="header-visual">
+                🖥️
             </div>
         </div>
     </header>
 
     <main class="main-content">
-        <!-- About Me -->
-        <section id="about" class="fade-in-section">
-            <h2>Professional Summary</h2>
-            <div class="about-section">
-                <div class="about-text">
-                    <p>
-                        데이터 기반의 의사결정과 자동화를 통해 인프라 운영 효율을 극대화하는 4년차 시스템 엔지니어입니다.
-                        50개 이상의 공공/기업 인프라를 성공적으로 구축했으며, AI 기술을 접목한 업무 혁신을 주도합니다.
-                    </p>
-                    <p style="margin-top: 20px;">
-                        Zabbix/Grafana 모니터링 시스템으로 장애 대응 시간을 30% 단축시킨 경험이 있으며,
-                        Dell, HP, 슈퍼마이크로 등 다양한 서버 환경과 Synology/QNAP NAS 스토리지 솔루션에 대한
-                        실무 경험을 보유하고 있습니다. 새로운 기술을 빠르게 습득하고 적용하는 것을 즐기며,
-                        AI 도구를 활용한 업무 자동화로 팀 생산성을 40% 향상시킨 경험이 있습니다.
-                    </p>
+        <!-- 핵심 강점 -->
+        <section class="fade-in">
+            <h2>핵심 강점</h2>
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="value-icon">📊</div>
+                    <h3>모니터링 시스템 구축</h3>
+                    <p>Zabbix+Grafana 기반 통합 모니터링으로 장애를 사전에 감지하고 대응 시간을 단축합니다.</p>
                 </div>
-                <div class="about-image">
-                    SE
+                <div class="value-card">
+                    <div class="value-icon">🔧</div>
+                    <h3>서버/스토리지 구축</h3>
+                    <p>Dell, HP, Synology, QNAP 등 다양한 하드웨어 구축 경험으로 고객 맞춤 인프라를 제공합니다.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">⚡</div>
+                    <h3>업무 자동화</h3>
+                    <p>반복 업무를 자동화하여 효율을 높이고, AI 도구를 적극 활용해 생산성을 향상시킵니다.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Core Skills -->
-        <section id="skills" class="fade-in-section">
-            <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">🖥</div>
-                    <h3>서버 / 스토리지</h3>
-                    <ul>
-                        <li>Dell/HP 서버 50+대 구축</li>
-                        <li>Synology/QNAP NAS 30+건</li>
-                        <li>VMware vSphere HA/DRS</li>
-                        <li>RAID 5/6/10 구성</li>
-                        <li>IPMI/iDRAC/iLO 원격관리</li>
-                    </ul>
+        <!-- About -->
+        <section id="about" class="fade-in">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-story">
+                    <p>
+                        안녕하세요, <strong>시스템 엔지니어 박찬호</strong>입니다.
+                    </p>
+                    <p>
+                        저는 <span class="highlight">"장애가 발생하면 복구하는 것"</span>보다 
+                        <span class="highlight">"장애가 발생하지 않도록 예방하는 것"</span>이 더 중요하다고 생각합니다.
+                        이런 철학으로 하이온넷에서 Zabbix+Grafana 모니터링 시스템을 직접 구축했고,
+                        이를 통해 장애 징후를 미리 감지하여 대응 시간을 단축시킬 수 있었습니다.
+                    </p>
+                    <p>
+                        현재 에이텍시스템에서는 공공기관과 기업을 대상으로 서버와 NAS 인프라를 구축하고 있습니다.
+                        Dell, HP, Synology, QNAP 등 다양한 장비를 다루며, 고객의 환경에 맞는 최적의 솔루션을 제안하고 있습니다.
+                    </p>
+                    <p>
+                        특히 <strong>새로운 기술을 배우고 적용하는 것</strong>을 즐깁니다.
+                        최근에는 AI 도구를 활용해 고객사 관리 CRM을 직접 개발했고,
+                        이를 통해 고객 정보 관리와 장애 이력 추적이 훨씬 효율적으로 바뀌었습니다.
+                    </p>
                 </div>
-                <div class="skill-card">
-                    <div class="skill-icon">📊</div>
-                    <h3>모니터링 / 자동화</h3>
-                    <ul>
-                        <li>Zabbix/Grafana 구축</li>
-                        <li>Python/Bash/PowerShell</li>
-                        <li>24/7 실시간 감시 체계</li>
-                        <li>장애 예측 시스템</li>
-                        <li>업무 자동화 스크립팅</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">🌐</div>
-                    <h3>OS / 네트워크</h3>
-                    <ul>
-                        <li>Linux/Windows Server</li>
-                        <li>Active Directory</li>
-                        <li>Cisco/FortiGate</li>
-                        <li>SSL 인증서 관리</li>
-                        <li>네트워크 장애 대응</li>
-                    </ul>
+                <div class="about-aside">
+                    <h4>기본 정보</h4>
+                    <div class="info-item">
+                        <span class="info-label">생년월일</span>
+                        <span class="info-value">1998.06.09</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">경력</span>
+                        <span class="info-value" id="total-experience">계산중...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">학력</span>
+                        <span class="info-value">인덕대 산업경영공학</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">자격증</span>
+                        <span class="info-value">컴퓨터활용능력 2급</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">병역</span>
+                        <span class="info-value">산업기능요원 소집해제</span>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Experience -->
-        <section id="experience" class="fade-in-section">
-            <h2>Professional Experience</h2>
-            <div class="experience-timeline">
-                <div class="experience-item">
-                    <h3>에이텍시스템 | 서버기술팀</h3>
-                    <div class="period">2024.12 ~ 재직중</div>
-                    <p><strong>주요 업무:</strong></p>
-                    <ul>
-                        <li>공공기관 및 기업 50곳 이상 서버/NAS 인프라 구축 및 운영</li>
-                        <li>Dell/HP/슈퍼마이크로 서버 50대+ 구축 및 시스템 가용성 99.9% 달성</li>
-                        <li>Synology/QNAP NAS 30건+ 구축 및 백업 솔루션 설계</li>
-                        <li>사내 IDC 관리 및 백본 네트워크 통신 구조 관리</li>
-                        <li>React+Node.js 기반 고객사 관리 CRM 개발 (AI 도구 활용)</li>
-                        <li>원격 관리 시스템(IPMI/iDRAC/iLO) 운영으로 현장 출동 50% 절감</li>
-                    </ul>
-                </div>
-
-                <div class="experience-item">
-                    <h3>하이온넷 | 클라우드팀</h3>
-                    <div class="period">2024.03 ~ 2024.12</div>
-                    <p><strong>주요 업무:</strong></p>
-                    <ul>
-                        <li>Cisco/FortiGate 네트워크 장비 구성 및 장애 대응</li>
-                        <li>Zabbix+Grafana 통합 모니터링 시스템 구축</li>
-                        <li>24/7 실시간 감시 및 알림 체계 구현</li>
-                        <li>장애 대응 시간 30% 단축 (2시간 → 1.4시간)</li>
-                        <li>시각화 대시보드를 통한 인프라 상태 통합 관리</li>
-                        <li>네트워크 보안 정책 수립 및 SSL 인증서 관리</li>
-                    </ul>
-                </div>
-
-                <div class="experience-item">
-                    <h3>KKDC | 생산팀</h3>
-                    <div class="period">2021.01 ~ 2023.04</div>
-                    <p><strong>주요 업무:</strong></p>
-                    <ul>
-                        <li>제조업 생산관리 시스템(MES) 서버 및 사내 네트워크 인프라 전담 운영</li>
-                        <li>노후 서버 가상화(P2V) 전환을 통해 하드웨어 유지비용 30% 절감</li>
-                        <li>24/7 생산라인 지원 및 긴급 장애 대응 체계 확립</li>
-                        <li>시스템 안정성 관리 및 예방 정비 계획 수립 및 실행</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects -->
-        <section id="projects" class="fade-in-section">
-            <h2>Key Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/real_server.jpg" alt="Server Infrastructure">
+        <section id="experience" class="fade-in">
+            <h2>Experience</h2>
+            <div class="experience-list">
+                <div class="experience-card">
+                    <div class="experience-meta">
+                        <div class="experience-period">2024.12 ~ 현재</div>
+                        <div class="experience-duration">재직중</div>
                     </div>
-                    <div class="project-content">
-                        <h3>공공기관 엔터프라이즈 서버 인프라 구축</h3>
-                        <div class="project-period">2024.12 ~ 현재</div>
-                        <p>
-                            Dell PowerEdge 서버 50+대 구축 프로젝트. RAID 5/6/10 구성을 통한 데이터 안정성 확보.
-                            IPMI/iDRAC/iLO 원격 관리 시스템 설정으로 효율적 운영 환경 구축.
-                            시스템 가용성 99.9% 달성 및 고객사별 맞춤형 하드웨어 구성 제안.
+                    <div class="experience-content">
+                        <h3>에이텍시스템</h3>
+                        <div class="experience-team">서버기술팀</div>
+                        <p class="experience-desc">
+                            공공기관 및 기업 대상 서버/스토리지 인프라 구축 및 기술지원을 담당하고 있습니다.
                         </p>
+                        <ul class="achievement-list">
+                            <li>Dell/HP/슈퍼마이크로 서버 구축 및 RAID 구성</li>
+                            <li>Synology/QNAP NAS 구축 및 백업 솔루션 설계</li>
+                            <li>사내 IDC 관리 및 백본 네트워크 운영</li>
+                            <li>React+Node.js 기반 고객사 관리 CRM 개발 <span class="achievement-highlight">AI 활용</span></li>
+                            <li>원격 관리 시스템(IPMI/iDRAC/iLO) 운영</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/nas.png" alt="NAS Storage">
+                <div class="experience-card">
+                    <div class="experience-meta">
+                        <div class="experience-period">2024.03 ~ 2024.12</div>
+                        <div class="experience-duration">9개월</div>
                     </div>
-                    <div class="project-content">
-                        <h3>NAS 스토리지 솔루션 구축</h3>
-                        <div class="project-period">2024.01 ~ 현재</div>
-                        <p>
-                            Synology/QNAP NAS 30건+ 구축. 스냅샷, 하이퍼 백업, 액티브 백업 기능을 활용한
-                            맞춤형 백업 솔루션 제공. RAID 구성을 통한 데이터 안정성 확보 및
-                            자동 백업 스케줄 설정으로 데이터 손실 방지 체계 구축.
+                    <div class="experience-content">
+                        <h3>하이온넷</h3>
+                        <div class="experience-team">클라우드팀</div>
+                        <p class="experience-desc">
+                            IDC 기반 네트워크 인프라 운영 및 모니터링 시스템 구축을 담당했습니다.
                         </p>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/crm.png" alt="CRM Dashboard">
-                    </div>
-                    <div class="project-content">
-                        <h3>고객사 인프라 관리 CRM 개발</h3>
-                        <div class="project-period">2024.12 ~ 현재</div>
-                        <p>
-                            React+TypeScript+Node.js 풀스택 개발. AI 코딩 어시스턴트(바이브코딩) 활용을 통한
-                            개발 생산성 200% 향상. 서버 정보, 고객사 정보, 장애 이력 통합 관리 시스템 구축.
-                            화이트리스트 및 방화벽 정책 연동으로 보안 강화. 업무 시간 40% 단축, 보고서 작성 효율 70% 향상.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/monitoring.png" alt="Monitoring System">
-                    </div>
-                    <div class="project-content">
-                        <h3>통합 모니터링 시스템 구축</h3>
-                        <div class="project-period">2024.03 ~ 2024.12</div>
-                        <p>
-                            Zabbix+Grafana 연동 통합 모니터링 시스템 구축. 서버 및 네트워크 장비의
-                            리소스 사용량, 트래픽, 장애 상태를 실시간 모니터링. 24시간 실시간 알림 체계 구현.
-                            장애 대응 시간 30% 단축 (2시간 → 1.4시간).
-                        </p>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/real_server.jpg" alt="Network Infrastructure">
-                    </div>
-                    <div class="project-content">
-                        <h3>네트워크 인프라 구축 및 장애 대응</h3>
-                        <div class="project-period">2024.03 ~ 2024.12</div>
-                        <p>
-                            Cisco 스위치 및 FortiGate 방화벽을 활용한 네트워크 인프라 구축.
-                            네트워크 장비 설정, 방화벽 정책 관리, SSL 인증서 관리.
-                            체계적인 장애 대응 절차 수립으로 서비스 안정성 향상.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/monitoring.png" alt="IDC Operations">
-                    </div>
-                    <div class="project-content">
-                        <h3>IDC 운영 및 백본 네트워크 관리</h3>
-                        <div class="project-period">2024.03 ~ 2024.12</div>
-                        <p>
-                            사내 IDC 내부 관리 및 전체적인 백본-고객사 스위치 간 통신 관리.
-                            네트워크 아키텍처 설계 및 최적화. 서비스 판매를 위한 서버 셋팅 및
-                            고객사 커스터마이징 지원.
-                        </p>
+                        <ul class="achievement-list">
+                            <li>Cisco/FortiGate 네트워크 장비 구성 및 장애 대응</li>
+                            <li>Zabbix+Grafana 통합 모니터링 시스템 구축 <span class="achievement-highlight">직접 설계</span></li>
+                            <li>24/7 실시간 감시 및 알림 체계 구현</li>
+                            <li>네트워크 보안 정책 수립 및 SSL 인증서 관리</li>
+                            <li>시각화 대시보드를 통한 인프라 상태 통합 관리</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Achievements -->
-        <section class="fade-in-section">
-            <h2>Key Achievements</h2>
-            <div class="achievement-grid">
-                <div class="achievement-item">
-                    <div class="number">50+</div>
-                    <p>공공기관/기업<br>인프라 구축</p>
+        <!-- Problem Solving - STAR 방식 -->
+        <section id="problem-solving" class="fade-in">
+            <h2>Problem Solving</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 24px;">
+                실제 업무에서 마주한 문제들을 어떻게 해결했는지 소개합니다.
+            </p>
+            <div class="story-cards">
+                <div class="story-card">
+                    <div class="story-header">
+                        <h3>모니터링 시스템 부재로 인한 장애 대응 지연 문제</h3>
+                        <span>하이온넷 | 2024</span>
+                    </div>
+                    <div class="story-body">
+                        <div class="star-item">
+                            <div class="star-label">Situation 상황</div>
+                            <p>
+                                기존에는 장애가 발생해야 고객 민원을 통해 인지하는 구조였습니다.
+                                서버 상태를 실시간으로 확인할 방법이 없어 장애 대응이 항상 늦어졌고,
+                                원인 분석에도 많은 시간이 소요되었습니다.
+                            </p>
+                        </div>
+                        <div class="star-item">
+                            <div class="star-label">Task 과제</div>
+                            <p>
+                                장애를 사전에 감지하고, 발생 시 빠르게 원인을 파악할 수 있는
+                                통합 모니터링 시스템을 구축해야 했습니다.
+                            </p>
+                        </div>
+                        <div class="star-item">
+                            <div class="star-label">Action 행동</div>
+                            <p>
+                                오픈소스인 Zabbix를 도입하여 서버/네트워크 장비의 리소스를 수집하고,
+                                Grafana로 시각화 대시보드를 구성했습니다.
+                                CPU, 메모리, 디스크 사용량이 임계치를 넘으면 
+                                Slack과 이메일로 즉시 알림이 가도록 설정했습니다.
+                            </p>
+                        </div>
+                        <div class="result-highlight">
+                            <div class="star-label">Result 결과</div>
+                            <p>
+                                장애 징후를 미리 감지하여 선제적 대응이 가능해졌고,
+                                장애 발생 시에도 대시보드를 통해 원인을 빠르게 파악할 수 있게 되었습니다.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="achievement-item">
-                    <div class="number">99.9%</div>
-                    <p>시스템 가용성<br>달성</p>
+
+                <div class="story-card">
+                    <div class="story-header">
+                        <h3>고객사 정보 관리의 비효율성 문제</h3>
+                        <span>에이텍시스템 | 2024</span>
+                    </div>
+                    <div class="story-body">
+                        <div class="star-item">
+                            <div class="star-label">Situation 상황</div>
+                            <p>
+                                고객사별 서버 정보, 장애 이력, 담당자 연락처 등이 
+                                엑셀 파일과 개인 메모에 분산되어 있었습니다.
+                                담당자가 바뀌면 정보 인수인계가 어렵고, 이전 장애 이력을 찾는 데 많은 시간이 걸렸습니다.
+                            </p>
+                        </div>
+                        <div class="star-item">
+                            <div class="star-label">Task 과제</div>
+                            <p>
+                                고객사 정보를 체계적으로 관리하고, 
+                                누구나 쉽게 조회할 수 있는 시스템이 필요했습니다.
+                            </p>
+                        </div>
+                        <div class="star-item">
+                            <div class="star-label">Action 행동</div>
+                            <p>
+                                AI 코딩 도구를 활용하여 React+Node.js 기반의 CRM 시스템을 직접 개발했습니다.
+                                고객사별 서버 구성, 네트워크 정보, 장애 이력, 담당자 연락처를 
+                                한 곳에서 관리할 수 있도록 구성했습니다.
+                            </p>
+                        </div>
+                        <div class="result-highlight">
+                            <div class="star-label">Result 결과</div>
+                            <p>
+                                고객 문의 시 필요한 정보를 즉시 확인할 수 있게 되었고,
+                                장애 대응 시 이전 이력을 참고하여 더 빠르게 해결할 수 있게 되었습니다.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="achievement-item">
-                    <div class="number">30%</div>
-                    <p>장애 대응 시간<br>단축</p>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills" class="fade-in">
+            <h2>Technical Skills</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>🖥️ 서버 / 스토리지</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag primary">Dell PowerEdge</span>
+                        <span class="skill-tag primary">HP ProLiant</span>
+                        <span class="skill-tag primary">Synology NAS</span>
+                        <span class="skill-tag primary">QNAP NAS</span>
+                        <span class="skill-tag">Supermicro</span>
+                        <span class="skill-tag">RAID 구성</span>
+                        <span class="skill-tag">VMware vSphere</span>
+                        <span class="skill-tag">iDRAC/iLO/IPMI</span>
+                    </div>
                 </div>
-                <div class="achievement-item">
-                    <div class="number">50%</div>
-                    <p>현장 출동<br>절감</p>
+                <div class="skill-category">
+                    <h3>📊 모니터링 / 자동화</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag primary">Zabbix</span>
+                        <span class="skill-tag primary">Grafana</span>
+                        <span class="skill-tag">Bash Script</span>
+                        <span class="skill-tag">PowerShell</span>
+                        <span class="skill-tag">Python (기초)</span>
+                    </div>
                 </div>
-                <div class="achievement-item">
-                    <div class="number">40%</div>
-                    <p>업무 시간<br>단축</p>
+                <div class="skill-category">
+                    <h3>🌐 네트워크 / 보안</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag primary">Cisco Switch</span>
+                        <span class="skill-tag primary">FortiGate</span>
+                        <span class="skill-tag">VLAN</span>
+                        <span class="skill-tag">VPN</span>
+                        <span class="skill-tag">SSL 인증서</span>
+                        <span class="skill-tag">방화벽 정책</span>
+                    </div>
                 </div>
-                <div class="achievement-item">
-                    <div class="number">70%</div>
-                    <p>보고서 작성<br>효율 향상</p>
+                <div class="skill-category">
+                    <h3>💻 OS / 기타</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag primary">Linux (Ubuntu, CentOS)</span>
+                        <span class="skill-tag primary">Windows Server</span>
+                        <span class="skill-tag">Active Directory</span>
+                        <span class="skill-tag">React (기초)</span>
+                        <span class="skill-tag">Node.js (기초)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Growth -->
+        <section class="fade-in">
+            <h2>성장 방향</h2>
+            <div class="growth-content">
+                <div class="growth-card">
+                    <h3>📚 현재 학습 중</h3>
+                    <ul class="growth-list">
+                        <li><span class="icon">🐳</span> Docker/Kubernetes 컨테이너 기술</li>
+                        <li><span class="icon">☁️</span> AWS/Azure 클라우드 기초</li>
+                        <li><span class="icon">🔐</span> 정보보안기사 자격증 준비</li>
+                        <li><span class="icon">🐍</span> Python 자동화 스크립트 심화</li>
+                    </ul>
+                </div>
+                <div class="growth-card">
+                    <h3>🎯 목표</h3>
+                    <ul class="growth-list">
+                        <li><span class="icon">🚀</span> 클라우드 + 온프레미스 하이브리드 인프라 전문가</li>
+                        <li><span class="icon">🤖</span> 인프라 자동화 및 IaC(Infrastructure as Code) 도입</li>
+                        <li><span class="icon">📈</span> 대규모 시스템 설계 및 운영 경험</li>
+                        <li><span class="icon">👥</span> 팀 리딩 및 후배 육성</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
         <!-- Education -->
-        <section class="fade-in-section">
-            <h2>Education & Certification</h2>
+        <section class="fade-in">
+            <h2>Education & Certificate</h2>
             <div class="education-grid">
-                <div class="education-item">
-                    <h3>인덕대학교</h3>
-                    <p>산업경영공학과 학사</p>
+                <div class="education-card">
+                    <h3>🎓 인덕대학교</h3>
+                    <p>산업경영공학과</p>
                     <p class="year">2021년 졸업</p>
                 </div>
-                <div class="education-item">
-                    <h3>컴퓨터활용능력 2급</h3>
+                <div class="education-card">
+                    <h3>📜 컴퓨터활용능력 2급</h3>
                     <p>대한상공회의소</p>
                     <p class="year">2019년 취득</p>
                 </div>
             </div>
         </section>
+
+        <!-- CTA -->
+        <section class="cta-section fade-in">
+            <h2>함께 일해보고 싶으시다면</h2>
+            <p>
+                안정적인 인프라 구축과 효율적인 시스템 운영에 관심이 있으시다면 편하게 연락주세요.
+            </p>
+            <div class="cta-buttons">
+                <a href="mailto:park_ch@kakao.com" class="cta-btn primary">
+                    ✉️ 이메일 보내기
+                </a>
+                <a href="tel:010-6752-5567" class="cta-btn secondary">
+                    📱 전화하기
+                </a>
+            </div>
         </section>
     </main>
 
     <!-- Footer -->
     <footer>
-        <p><strong>박찬호 | System Engineer</strong></p>
-        <p>Infrastructure Specialist · Server & Storage · Network Management</p>
-        <p class="copyright">© 2025 Chanho Park. All rights reserved.</p>
+        <p><strong>박찬호</strong> | System Engineer</p>
+        <p>© 2025 All rights reserved.</p>
     </footer>
-    <button id="back-to-top" title="Go to top">↑</button>
+
+    <button id="back-to-top" aria-label="맨 위로">↑</button>
 
     <script>
-        // Scroll Animation
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
+        // 경력 자동 계산
+        function calculateExperience() {
+            const experiences = [
+                { start: '2024-03-01', end: '2024-12-31' },  // 하이온넷
+                { start: '2024-12-01', end: null }           // 에이텍시스템 (현재 재직중)
+            ];
+
+            let totalMonths = 0;
+
+            experiences.forEach(exp => {
+                const startDate = new Date(exp.start);
+                const endDate = exp.end ? new Date(exp.end) : new Date();
+                
+                const months = (endDate.getFullYear() - startDate.getFullYear()) * 12 
+                             + (endDate.getMonth() - startDate.getMonth());
+                totalMonths += months;
             });
-        }, observerOptions);
 
-        document.querySelectorAll('.fade-in-section').forEach(section => {
-            observer.observe(section);
+            const years = Math.floor(totalMonths / 12);
+            const months = totalMonths % 12;
+
+            let result = '약 ';
+            if (years > 0) result += years + '년 ';
+            if (months > 0) result += months + '개월';
+            
+            document.getElementById('total-experience').textContent = result.trim();
+        }
+
+        calculateExperience();
+        const themeIcon = document.getElementById('theme-icon');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+            themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        } else if (systemPrefersDark) {
+            html.setAttribute('data-theme', 'dark');
+            themeIcon.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
 
-        // Back to Top Button
-        const backToTopButton = document.getElementById('back-to-top');
+        // Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Scroll Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Back to Top
+        const backToTop = document.getElementById('back-to-top');
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
-                backToTopButton.classList.add('show');
+                backToTop.classList.add('show');
             } else {
-                backToTopButton.classList.remove('show');
+                backToTop.classList.remove('show');
             }
         });
 
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>
